@@ -1,0 +1,160 @@
+--- aview-1.3.0rc1.orig/AUTHORS
++++ aview-1.3.0rc1/AUTHORS
+@@ -1,6 +1,6 @@
+-Jan Hubicka  <hubicka@freesoft.cz>
+-  - Original code, maitainer
+-Kamil Toman  <toman@artax.karlin.mff.cuni.cz>
++Jan Hubicka <hubicka@freesoft.cz>
++  - Original code, maintainer
++Kamil Toman <toman@artax.karlin.mff.cuni.cz>
+   - Maitenance of version 1.2
+ Ladislav Michl
+   - Number of fixes and improvements
+--- aview-1.3.0rc1.orig/main.c
++++ aview-1.3.0rc1/main.c
+@@ -1,3 +1,4 @@
++#include <string.h>
+ #include <aalib.h>
+ #include "image.h"
+ #include "ui.h"
+@@ -25,8 +26,8 @@
+ 
+   filename[0] = '\0';
+   for (i = 1; i < argc; i++) {
+-    if (!strncmp(argv[i], "--", 2)) {
+-      if (!strcmp(argv[i], "--help")) { showhelp(argv[0]); exit(0); }
++    if (!strncmp(argv[i], "-", 1)) {
++      if (!strcmp(argv[i], "--help") || !strcmp(argv[i], "-h")) { showhelp(argv[0]); exit(0); }
+       if (!strcmp(argv[i], "--version")) { showversion(argv[0]); exit(0); }
+       printf("Unknown option. Use %s --help for help\n", argv[0]);
+       exit(-1);
+--- aview-1.3.0rc1.orig/ui.c
++++ aview-1.3.0rc1/ui.c
+@@ -168,11 +168,11 @@
+     aa_puts(context, 0, 3, AA_SPECIAL, " z       - unzoom                     Z       - zoom               ");
+     aa_puts(context, 0, 4, AA_SPECIAL, " s       - Save image                                              ");
+     aa_puts(context, 0, 5, AA_SPECIAL, " m       - change dithering mode      q       - quit               ");
+-    aa_puts(context, 0, 6, AA_SPECIAL, " i       - turns inversion on         I       - intversion off     ");
++    aa_puts(context, 0, 6, AA_SPECIAL, " i       - turn inversion on          I       - inversion off      ");
+     aa_puts(context, 0, 7, AA_SPECIAL, " u       - select attributes          f       - select font        ");
+     aa_puts(context, 0, 8, AA_SPECIAL, " space   - redraw                     ',','.' - change contrast    ");
+-    aa_puts(context, 0, 9, AA_SPECIAL, " ';',''' - change gamma               '<','>' - change bright      ");
+-    aa_puts(context, 0, 10, AA_SPECIAL, " '+','-' - zoom/unzoom                '<','>' - change bright      ");
++    aa_puts(context, 0, 9, AA_SPECIAL, " ';',''' - change gamma               '<','>' - change brightness  ");
++    aa_puts(context, 0, 10, AA_SPECIAL, " '+','-' - zoom/unzoom                                            ");
+ }
+ void main_loop(void)
+ {
+--- aview-1.3.0rc1.orig/flip.c
++++ aview-1.3.0rc1/flip.c
+@@ -7,8 +7,10 @@
+ 
+ #include <stdlib.h>
+ #include <stdio.h>
++#include <string.h>
+ #include <sys/time.h>
+ #include <unistd.h>
++#include <ctype.h>
+ #include <aalib.h>
+ 
+ #include "general.h"
+@@ -16,6 +18,8 @@
+ 
+ #define NAMELEN 256
+ 
++static int f_getkey(void);
++
+ struct OPTIONS {
+ 	char filename[NAMELEN];	/* filename given on command line */
+ 	char fast;		/* 1 = play without delays */
+@@ -330,7 +334,7 @@
+ 	puts( " -b          Process frames when they are loaded." );
+ 	puts( " -c          Keep a blank screen while frames are being loaded." );
+ 	puts( " -n <number> Play the animation sequence <n> times." );
+-	puts( " -s <delay>  Set delay between frames to <delay> miliseconds." );
++	puts( " -s <delay>  Set delay between frames to <delay> milliseconds." );
+ 	puts( " -           Read flic file from standard input." );
+ 	puts( "also standard aalib options are supported" );
+ 	puts( " -dim, -bold, -reverse, -normal for enabling attributes");
+@@ -705,7 +709,7 @@
+ 
+     aa_setsupported(c, supported);
+ }
+-int f_getkey(void)
++static int f_getkey(void)
+ {
+   int c=aa_getkey(context,0);
+   switch(c) {
+@@ -769,7 +773,6 @@
+ int quit = 0;
+ int playstartframe = 0;
+ int first=1;
+-long t, tdelta;
+ 	aa_parseoptions(NULL,NULL,&argc,argv);
+ 	parse_cmdln( argc, argv, &options );
+ 	strcpy( fli.filename, options.filename );
+--- aview-1.3.0rc1.orig/asciiview
++++ aview-1.3.0rc1/asciiview
+@@ -7,9 +7,9 @@
+ }
+ myconvert()
+ {
+-   if anytopnm $1 >/tmp/aview$$.pgm 2>/dev/null ; then
++   if anytopnm "$1" >/tmp/aview$$.pgm 2>/dev/null ; then
+      exit
+-   elif convert -colorspace gray $1 pgm:- 2>/dev/null ; then
++   elif convert -colorspace gray "$1" pgm:- 2>/dev/null ; then
+      exit
+    fi
+    echo "Failed to convert file format to PNM by both convert and anytopnm" >&2
+@@ -33,8 +33,9 @@
+   "
+   exit 1
+ fi
++counter=0
+ while [ "$1" != "" ]; do
+-  case $1 in
++  case "$1" in
+     "-font" | "-driver" | "-kbddriver" | "-mousedriver" | "-*width" | "-*height" | "-bright" | "-contrast" | "-gamma" | "-random" | "-dimmul" | "-boldmul")
+       options="$options $1 $2"
+       shift 
+@@ -45,7 +46,8 @@
+       shift
+       ;;
+     *) 
+-      filenames="$filenames $1"
++      filenames[$counter]="$1"
++      counter=$(($counter+1))
+       shift
+       ;;
+   esac
+@@ -53,21 +55,23 @@
+ trap clear 0
+ mkfifo /tmp/aview$$.pgm
+ outfile=/tmp/aview$$.pgm
+-for name in $filenames ; do
+-if test -r $name ; then
+-case $name in
++while [ $counter -gt 0 ]; do
++counter=$(($counter-1))
++name=${filenames[$counter]}
++if test -r "$name" ; then
++case "$name" in
+ *.fli | *.lfc | *.flic )
+   PATH="$PATH:."
+-  aaflip $options $name
++  aaflip $options "$name"
+   ;;
+ *)
+-  myconvert $name >/tmp/aview$$.pgm &
++  myconvert "$name" >/tmp/aview$$.pgm &
+   pid=$!
+   PATH="$PATH:."
+   aview  $options /tmp/aview$$.pgm
+   kill $pid 2>/dev/null
+ esac
+ else
+-  echo "$name could not be opended"
++  echo "The file '$name' could not be opened."
+ fi
+ done

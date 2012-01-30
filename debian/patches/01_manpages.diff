@@ -1,0 +1,227 @@
+--- aview-1.3.0rc1.orig/aview.1
++++ aview-1.3.0rc1/aview.1
+@@ -1,44 +1,107 @@
+-.TH NAME SECTION 
+-.\" NAME should be all caps, SECTION should be 1-8, maybe w/ subsection
+-.\" other parms are allowed: see man(7), man(1)
++.TH AVIEW 1 "December 17, 2001"
+ .SH NAME
+-aview \- An high quality ascii-art image(pgm) browser
++aview \- A high quality ASCII art image viewer
+ .SH SYNOPSIS
+-.B aview
+-.I "[options] filename.p[ngbp]m"
+-.SH "DESCRIPTION"
+-This manual page documents briefly the
+-.BR aview ,
+-and
+-.B asciiview
+-commands.
++.BR "aview " [ options "] filename.p[ngbp]m"
++.br
++.BR "asciiview " [ options "] filename.xxx"
++.SH DESCRIPTION
+ This manual page was written for the Debian GNU/Linux distribution
+ because the original program does not have a manual page.
+ .PP
+ .B aview/asciiview
+-is a program that show files with ascii-art. 
++is an image viewer which displays the images in ASCII art...
++.PP
+ .B aview
+-support zooming/unzooming, three dithering modes, Inversion, Contrast, Bright,
+-Gamma control and can save into many formats (html, text, ansi, more/less
+-etc...). The 
++supports zooming/unzooming, three dithering modes, inversion, contrast,
++brightness, gamma control and can save into many formats (html, text, ansi,
++more/less etc.).
++.PP
+ .B aview
+-can only show files in the PNM file format. But the 
+-.B asciiview 
+-program convert the file formats to PNM (with extern programs like NetPBM and
+-ImageMagic) and start 
+-.B aview.
+-It's support the driver from the aalib. Normaly slang, x11 and stdout. It
+-support the mousedriver (X11 and gpm) too. 
+-.SH OPTIONS
+-For a complete description, make only
++can only show files in the PNM file format. But
++.B asciiview
++automatically converts the file formats to PNM (with extern programs like
++NetPBM and ImageMagic) and then runs
++.BR aview .
++.PP
++It supports the usual aalib drivers (e.g. slang, x11 and stdout) as well as
++the mousedrivers X11 and gpm. 
++.SH CONTROLS
++.TP
++.BR a , w , d , x
++Move the image one row/column.
++.TP
++.BR A , W , D , X
++Move the image one page.
++.TP
++.BR Z , +
++Zoom in.
++.TP
++.BR z , -
++Zoom out.
++.TP
++.B s
++Save image.
++.TP
++.B m
++Change dithering mode.
++.TP
++.B q
++Quit the viewer.
+ .TP
+-.B aview 
+-.TP 
+-This show all option.
++.B i
++Turn inversion on.
++.TP
++.B I
++Turn inversion off.
++.TP
++.B u
++Select attributes.
++.TP
++.B f
++Select font.
++.TP
++.B SPACE
++Redraw screen.
++.TP
++.B .
++Increase contrast (dot).
++.TP
++.B ,
++Decrease contrast (comma).
++.TP
++.B '
++Increase gamma (single quote).
++.TP
++.B ;
++Decrease gamma (semicolon).
++.TP
++.B >
++Increase brightness.
++.TP
++.B <
++Decrease brightness.
++.SH OPTIONS
++For a complete description, type
++.BR "aview --help" .
++This shows all options.
++.SH BUGS
++Please report any bugs you find to Jan Hubicka <hubicka@freesoft.cz>.
++.SH LICENSE
++.B aview
++is covered by the GNU General Public License (GPL).
+ .SH "SEE ALSO"
+-.B bb
+-,
+-.B "aalib (info-page)"
++.BR aafire (1),
++.BR aainfo (1),
++.BR aasavefont (1),
++.BR aatest (1),
++.BR aaflip (1),
++.BR aa3d (1),
++.BR aatv (1),
++.BR bb (1),
++.BR xaos (6).
+ .SH AUTHOR
++Jan Hubicka <hubicka@freesoft.cz>
++.PP
+ This manual page was written by Michael Bramer <grisu@debian.org>,
+ for the Debian GNU/Linux system (but may be used by others).
+--- aview-1.3.0rc1.orig/debian/aaflip.1
++++ aview-1.3.0rc1/debian/aaflip.1
+@@ -0,0 +1,83 @@
++.TH AAFLIP 1 "December 17, 2001"
++.SH NAME
++aaflip \- An ASCII art video player
++.SH SYNOPSIS
++.B aaflip
++.RB [\| \-abcfv \|]
++.RB [\| \-n
++.RB number \|]
++.RB [\| \-s
++.RB delay \|]
++.SH DESCRIPTION
++.B aaflip
++is an ASCII art video player which supports the fli and flc formats.
++.PP
++fli files are limited to a resolution of 320x200 pixel, while flc files can
++have any resolution.
++.PP
++The default method of playing is to load the first frame of the animation
++sequence and display it. After this the remainder of the file is loaded
++into memory, and the animation starts. The animation ends when q or ctrl-c
++is pressed.
++.SH OPTIONS
++.TP
++.B \-a
++Remove frames from memory after processing. Using this option leaves more
++memory for other processes, but relies on the buffer cache for continuous
++animation.
++.TP
++.B \-b
++Process frames immediately as they are loaded. When using this option the
++animation frames are shown as soon as the player has read them, so you don't
++have to wait until the entire file has been read. The disadvantage is that the
++animation becomes jumpy if the speed set by the animation is higher than the
++speed of loading.
++.TP
++.B \-c
++Keep the screen black while loading the animation. This conflicts with option
++.BR -b ,
++which can give interesting results.
++.TP
++.B \-f
++Switch off clock synchronization. Animation will run as fast as possible.
++.TP
++.B \-v
++Show information on flic file.
++.TP
++.B "\-n number"
++Play the animation sequence 
++.I number
++times.
++.TP
++.B "\-s delay"
++Set delay between frames to 
++.I delay
++milliseconds. Option 
++.B "\-s 0"
++is the same as 
++.BR \-f .
++.SH BUGS
++Please report any bugs you find to Jan Hubicka <hubicka@freesoft.cz>.
++.SH LICENSE
++.B aaflip
++is covered by the GNU General Public License (GPL).
++.SH HISTORY
++.B aaflip
++is based on the FLI Player written by John Remyn <boogyman@xs4all.hacktic.nl>.
++.SH "SEE ALSO"
++.BR aafire (1),
++.BR aainfo (1),
++.BR aasavefont (1),
++.BR aatest (1),
++.BR aview (1),
++.BR asciiview (1),
++.BR aa3d (1),
++.BR aatv (1),
++.BR bb (1),
++.BR xaos (6).
++.SH AUTHOR
++Jan Hubicka <hubicka@freesoft.cz>
++.PP
++This manual page was written by Edward Betts <edward@debian.org> and
++Aaron Lehmann <aaronl@vitelus.com>, for the Debian GNU/Linux system
++(but may be used by others).

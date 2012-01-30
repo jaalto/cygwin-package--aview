@@ -1,0 +1,7 @@
+sdesc: "A high quality ASCII art image viewer and video player"
+ldesc: "Program is especially useful with a text-based browser such as lynx,
+links or w3m.It supports the pnm, pgm, pbm and ppm image formats, as
+well as the FLI and FLC video formats. It also supports output via
+stdio, (n)curses and slang and even has support for gpm."
+category: Graphics X11
+requires: cygwin bash libaa1 libncurses8 xorg-x11-bin-dlls

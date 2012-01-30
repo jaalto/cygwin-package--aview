@@ -1,0 +1,76 @@
+aview
+------------------------------------------
+
+A high quality ASCII art image viewer and video player
+
+Program is especially useful with a text-based browser such as lynx,
+links or w3m.It supports the pnm, pgm, pbm and ppm image formats, as
+well as the FLI and FLC video formats. It also supports output via
+stdio, (n)curses and slang and even has support for gpm.
+
+Usage notes:
+  pngtopnm test.png > test.pnm
+  aview -driver curses test.pnm
+
+Runtime requirements:
+  cygwin
+  libaa1
+  libncurses8
+  xorg-x11-bin-dlls
+  bash
+
+Build requirements:
+  cygwin
+  aalib-devel
+  libncurses-devel
+  xorg-x11-devel
+
+Canonical homepage:
+  http://sourceforge.net/projects/aa-project
+  http://packages.debian.org/aview
+
+Canonical download:
+  See above
+
+Version control repository:
+
+Mailing list:
+
+Forum / Wiki:
+
+IRC channel:
+
+Upstream contact:
+  Maintainer: Jan Hubicka <hubickausers.sourceforge.net>, <hubicka@freesoft.cz>
+  Bugs: Jan Hubicka <hubickausers.sourceforge.net>
+
+License:
+  GPL
+
+Language:
+  C
+
+------------------------------------------
+
+Build instructions:
+  unpack aview-*-src.tar.bz2
+    if you use setup to install this src package, it will be
+    unpacked under /usr/src automatically
+  cd /usr/src
+  ./aview*.sh all
+
+------------------------------------------
+
+Files included in the binary distribution:
+  See content of *.tar.gz
+
+------------------------------------------
+
+Port Notes:
+- aaflip: No manual page. Copied from Debian.
+
+----- version 1.3.0rc1-1 -----
+- Initial release 2008-03-06 Jari Aalto
+
+Cygwin port maintained by: Jari Aalto <jari.aalto@cante.net>
+Copyright (C) 2008 Jari Aalto; Licensed under GPL v2 or later

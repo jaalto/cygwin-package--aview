@@ -1,0 +1,58 @@
+From 6592fa874e5b170b0e91a7c6c9f21621490ee5ff Mon Sep 17 00:00:00 2001
+From: Jari Aalto <jari.aalto@cante.net>
+Date: Fri, 7 Mar 2008 00:12:44 +0200
+Subject: [PATCH] Manual pages: remove word Debian
+
+Signed-off-by: Jari Aalto <jari.aalto@cante.net>
+---
+ asciiview.1 |    7 +++----
+ aview.1     |    7 +++----
+ 2 files changed, 6 insertions(+), 8 deletions(-)
+
+diff --git a/asciiview.1 b/asciiview.1
+index a6778f9..a40fb9d 100644
+--- a/asciiview.1
++++ b/asciiview.1
+@@ -12,8 +12,8 @@ This manual page documents briefly the
+ and
+ .B asciiview
+ commands.
+-This manual page was written for the Debian GNU/Linux distribution
+-because the original program does not have a manual page.
++This manual page was written because the original program does not
++have a manual page.
+ .PP
+ .B aview/asciiview
+ is a program that show files with ascii-art. 
+@@ -40,5 +40,4 @@ This show all option.
+ ,
+ .B "aalib (info-page)"
+ .SH AUTHOR
+-This manual page was written by Michael Bramer <grisu@debian.org>,
+-for the Debian GNU/Linux system (but may be used by others).
++This manual page was written by Michael Bramer <grisu@debian.org>.
+diff --git a/aview.1 b/aview.1
+index a6778f9..a40fb9d 100644
+--- a/aview.1
++++ b/aview.1
+@@ -12,8 +12,8 @@ This manual page documents briefly the
+ and
+ .B asciiview
+ commands.
+-This manual page was written for the Debian GNU/Linux distribution
+-because the original program does not have a manual page.
++This manual page was written because the original program does not
++have a manual page.
+ .PP
+ .B aview/asciiview
+ is a program that show files with ascii-art. 
+@@ -40,5 +40,4 @@ This show all option.
+ ,
+ .B "aalib (info-page)"
+ .SH AUTHOR
+-This manual page was written by Michael Bramer <grisu@debian.org>,
+-for the Debian GNU/Linux system (but may be used by others).
++This manual page was written by Michael Bramer <grisu@debian.org>.
+-- 
+1.5.3.8
+

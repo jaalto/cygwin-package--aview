@@ -1,0 +1,165 @@
+.TH AAFLIP 1 "December 17, 2001"
+.SH NAME
+aaflip \- An ASCII art video player
+.SH SYNOPSIS
+.B aaflip
+.RB [\| \-abcfv \|]
+.RB [\| \-n
+.RB number \|]
+.RB [\| \-s
+.RB delay \|]
+.SH DESCRIPTION
+.B aaflip
+is an ASCII art video player which supports the fli and flc formats.
+.PP
+fli files are limited to a resolution of 320x200 pixel, while flc files can
+have any resolution.
+.PP
+The default method of playing is to load the first frame of the animation
+sequence and display it. After this the remainder of the file is loaded
+into memory, and the animation starts. The animation ends when q or ctrl-c
+is pressed.
+.SH OPTIONS
+.TP
+.B \-a
+Remove frames from memory after processing. Using this option leaves more
+memory for other processes, but relies on the buffer cache for continuous
+animation.
+.TP
+.B \-b
+Process frames immediately as they are loaded. When using this option the
+animation frames are shown as soon as the player has read them, so you don't
+have to wait until the entire file has been read. The disadvantage is that the
+animation becomes jumpy if the speed set by the animation is higher than the
+speed of loading.
+.TP
+.B \-c
+Keep the screen black while loading the animation. This conflicts with option
+.BR -b ,
+which can give interesting results.
+.TP
+.B \-f
+Switch off clock synchronization. Animation will run as fast as possible.
+.TP
+.B \-v
+Show information on flic file.
+.TP
+.B "\-n number"
+Play the animation sequence
+.I number
+times.
+.TP
+.B "\-s delay"
+Set delay between frames to
+.I delay
+milliseconds. Option
+.B "\-s 0"
+is the same as
+.BR \-f .
+.SH BUGS
+Please report any bugs you find to Jan Hubicka <hubicka@freesoft.cz>.
+.SH LICENSE
+.B aaflip
+is covered by the GNU General Public License (GPL).
+.SH HISTORY
+.B aaflip
+is based on the FLI Player written by John Remyn <boogyman@xs4all.hacktic.nl>.
+.SH "SEE ALSO"
+.BR aafire (1),
+.BR aainfo (1),
+.BR aasavefont (1),
+.BR aatest (1),
+.BR aview (1),
+.BR asciiview (1),
+.BR aa3d (1),
+.BR aatv (1),
+.BR bb (1),
+.BR xaos (6).
+.SH AUTHOR
+Jan Hubicka <hubicka@freesoft.cz>
+.PP
+This manual page was written by Edward Betts <edward@debian.org> and
+Aaron Lehmann <aaronl@vitelus.com>, for the Debian GNU/Linux system
+(but may be used by others).
+.TH AAFLIP 1 "December 17, 2001"
+.SH NAME
+aaflip \- An ASCII art video player
+.SH SYNOPSIS
+.B aaflip
+.RB [\| \-abcfv \|]
+.RB [\| \-n
+.RB number \|]
+.RB [\| \-s
+.RB delay \|]
+.SH DESCRIPTION
+.B aaflip
+is an ASCII art video player which supports the fli and flc formats.
+.PP
+fli files are limited to a resolution of 320x200 pixel, while flc files can
+have any resolution.
+.PP
+The default method of playing is to load the first frame of the animation
+sequence and display it. After this the remainder of the file is loaded
+into memory, and the animation starts. The animation ends when q or ctrl-c
+is pressed.
+.SH OPTIONS
+.TP
+.B \-a
+Remove frames from memory after processing. Using this option leaves more
+memory for other processes, but relies on the buffer cache for continuous
+animation.
+.TP
+.B \-b
+Process frames immediately as they are loaded. When using this option the
+animation frames are shown as soon as the player has read them, so you don't
+have to wait until the entire file has been read. The disadvantage is that the
+animation becomes jumpy if the speed set by the animation is higher than the
+speed of loading.
+.TP
+.B \-c
+Keep the screen black while loading the animation. This conflicts with option
+.BR -b ,
+which can give interesting results.
+.TP
+.B \-f
+Switch off clock synchronization. Animation will run as fast as possible.
+.TP
+.B \-v
+Show information on flic file.
+.TP
+.B "\-n number"
+Play the animation sequence
+.I number
+times.
+.TP
+.B "\-s delay"
+Set delay between frames to
+.I delay
+milliseconds. Option
+.B "\-s 0"
+is the same as
+.BR \-f .
+.SH BUGS
+Please report any bugs you find to Jan Hubicka <hubicka@freesoft.cz>.
+.SH LICENSE
+.B aaflip
+is covered by the GNU General Public License (GPL).
+.SH HISTORY
+.B aaflip
+is based on the FLI Player written by John Remyn <boogyman@xs4all.hacktic.nl>.
+.SH "SEE ALSO"
+.BR aafire (1),
+.BR aainfo (1),
+.BR aasavefont (1),
+.BR aatest (1),
+.BR aview (1),
+.BR asciiview (1),
+.BR aa3d (1),
+.BR aatv (1),
+.BR bb (1),
+.BR xaos (6).
+.SH AUTHOR
+Jan Hubicka <hubicka@freesoft.cz>
+.PP
+This manual page was written by Edward Betts <edward@debian.org> and
+Aaron Lehmann <aaronl@vitelus.com>.

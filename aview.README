@@ -15,15 +15,11 @@ Usage notes:
 Runtime requirements:
   cygwin
   libaa1
-  libncurses8
-  xorg-x11-bin-dlls
-  bash
+  bash (/usr/bin/asciiview)
 
 Build requirements:
   cygwin
   aalib-devel
-  libncurses-devel
-  xorg-x11-devel
 
 Canonical homepage:
   http://sourceforge.net/projects/aa-project
